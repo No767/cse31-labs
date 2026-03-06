@@ -1,0 +1,36 @@
+TPS 1:
+
+1. 
+    - Stack
+        - Local variables
+    - Heap
+        - Dynamic malloc, requested via pointers
+    - Static
+        - Global and static variables for the whole entire program execution
+
+2.
+    a. 3 variables are declared
+    b. 2 of them are pointers
+    c. ptr and handle are stored in the heap, num is stored in the stack
+    d. The pointer will use the heap
+
+3. See drawing on tablet
+4. See drawing on tablet
+
+TPS 2:
+
+1. NodeStruct.c describes a "Node" in a implementation of a LinkedList. 
+   It just sets the head up (by allocating the memory required for the struct) and sets the values as necessary with the arrow operator
+
+2. 
+    Value of head: 0x56dd4ad0f2a0
+    Address of head: 0x7ffd6f76c138
+    Address of iValue: 0x56dd4ad0f2a0
+    Address of fValue: 0x56dd4ad0f2a4
+    Address of next: 0x56dd4ad0f2a8
+
+3. 
+    - The members of the struct are assigned memory address 0x56dd4ad0, with the last 3 digits being the slots allocated (with it increasing by 4 bytes).
+    - The address of the head is stored on the stack (the pointer is on the stack), while the actual Node struct is on the heap 
+    - The address of the struct is the same as the address for the first member  
+   

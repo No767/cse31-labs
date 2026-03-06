@@ -1,0 +1,47 @@
+TPS 1:
+
+1. Expected to print out the first element of the array
+2. I expect it to print out a string, "A1", but in hex form, I would assume the ascii value of "A" + 0
+3. Apparently I'm wrong. In hex, I get "44434241"
+4. It still prints out "2". I'm surprised and unsure why
+5:
+    a. 1 array was allocated for this program
+    b. Yes, they are pointing to the correct location
+    c. It seems like with the addresses, and the values, it's different
+
+        four_ints: 
+        0x7ffdf44ca280
+        0x7ffdf44ca284
+        0x7ffdf44ca288
+        0x7ffdf44ca28c
+        four_c: 
+        0x7ffdf44ca280
+        0x7ffdf44ca281
+        0x7ffdf44ca282
+        0x7ffdf44ca283
+
+6. The values and addresses:
+    four_ints: 
+    0x7ffe1cd928a0, 2
+    0x7ffe1cd928a4, 2
+    0x7ffe1cd928a8, 2
+    0x7ffe1cd928ac, 2
+
+    four_c: 
+    0x7ffe1cd928a0, 41
+    0x7ffe1cd928a1, 42
+    0x7ffe1cd928a2, 43
+    0x7ffe1cd928a3, 44
+7. See drawing
+8. Values already provided above. But the last two bits (a0, a4), etc in four_ints move by 4 bytes, and in four_c, they move by 1 byte
+9. See drawing
+10. C does not simply append 1 to the memory addresses, but based off of the type, it's incremented by how much bytes does the type stores. Int stores 4 bytes, char stores 1 byte. Thus, it's incrementing by those amounts
+
+TPS 2:
+
+1. Line #8 allocates n * sizeof(int), with n = 5, and the size of an int being 4 bytes. So it's allocating 20 raw bytes in the heap.
+2. In order to get the value of 2d array, we would usually use arr[i][j]. Instead, if arr[i] is the same as *(arr + i), then *(*(arr + i) + j) would be the same as arr[i][j]
+3. We will loop through i and j, and use *(*(arr + i) + j) to set the values of each element in the 2d array. We also need to get the raw memory for each inner row
+4. We need to pass in the size, because "n" is scoped to the function "main". Thus, we can't access "n" in the printArray function. It's also because there is no way of determining the size without passing in the size explicitly
+5. Use the same way to access each element, and then just print it out.
+6. The way we will do it is to basically do arr[i][i] = i + 1 in array notation. In pointer notation, it's *(*(arr + i) + i) = i + 1. It's the same thing, where we go down by 

@@ -1,0 +1,29 @@
+[tasks."build"]
+description = "Builds the wordsearch executable"
+dir = "{{ config_root }}"
+run = '''
+#!/usr/bin/env bash
+[ -d build ] || mkdir build
+gcc -o build/wordsearch.out src/wordsearch.c
+'''
+
+[tasks."run"]
+description = "Runs the built wordsearch executable"
+usage = '''
+arg "<puzzle>" help="puzzle to select from"
+'''
+dir = "{{ config_root }}"
+run = "./build/wordsearch.out tests/${usage_puzzle?}"
+
+[tasks."demo"]
+description = "Builds and runs the wordsearch executable for demo purposes"
+usage = '''
+arg "<puzzle>" help="puzzle to select from"
+'''
+dir = "{{ config_root }}"
+run = [{ task = "build" }, "./build/wordsearch.out tests/${usage_puzzle?}"]
+
+[tasks."format"]
+description = "Formats code via clang-format"
+dir = "{{ config_root }}"
+run = "clang-format -i src/*.c"

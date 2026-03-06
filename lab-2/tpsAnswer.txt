@@ -1,0 +1,65 @@
+TPS 1: 
+
+1. Noelle, Lucky, Dash
+
+2.
+    - https://beej.us/guide/bggdb/
+    - https://www.dirac.org/linux/gdb/01-Introduction.php
+    - https://www.youtube.com/watch?v=Dq8l1_-QgAc
+
+3. Already discussed
+4. Already saved
+
+TPS 2:
+
+1. Use the "-g" flag to create debug info
+2. gdb ./punish
+3. Type in "run"
+4. In gdb: break <line number>. So it would be "break 27"
+5. Use the "next" command to go through line by line
+6. 
+    Use the command "print <variable>"
+
+    Variable "count": $4 = 4
+    Variable "typo_line": $5 = 1
+    Variable "i": $6 = 4
+7. Use the command "continue"
+8. Use the command "quit"
+
+TPS 3:
+
+1. 4 variables, with 2 variables being pointers (being *px and *py)
+2. 
+    x: 32765, y: 653902720
+    *px: (nil), *py: 0x74f4bc6aa5c0
+    arr10: 0x7ffd26f9c2b0
+
+3. Initialize them to values
+4. x: 0x7ffe4e0288ec, y: 0x7ffe4e0288e8
+5. 
+    value for x: 31990, value for y: -79178304
+    x: 0x7ffce0f6e16c, y: 0x7ffce0f6e168
+
+    value for *px: 31990, value for *py: -79178304
+    *px: 0x7ffce0f6e16c, *py: 0x7ffce0f6e168
+6. 
+    Values below:
+
+    140
+    140
+    140
+    140
+    140
+    140
+    140
+    140
+    140
+    140
+7. 
+    First value of arr via arr[0]: 6
+    First value of arr via pointer: 6
+8. 
+    First value of arr via arr[0]: 6 (0x7ffd39ddd4b0)
+    First value of arr via pointer: 6 (0x7ffd39ddd4b0)
+
+    It makes sense because arrays are just pointers, and you can use pointer arithmetic to manipulate them 

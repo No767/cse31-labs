@@ -1,0 +1,13 @@
+Individual Assignment 1:
+
+1. Line 25 of average_original.c - read_values
+2. It needs to have it's address passed in instead - &input
+3. The bug is that the average ends up being 0
+4. The variable "sum" is initialized to 0. It doesn't get updated, as it is out of the scope of the main function. 
+    Thus, the only way to fix it is to make sure that the sum gets passed into the main function, or send back the average instead of doing it in the main function
+
+Individual Assignment 2:
+    
+1. The results are to be expected. Even with quotes, it just appends it with the quotation marks
+2. It is not expected. Results are "HI!hi!hello!". The reason why is that there is no null terminator (\0), thus it appends it from the previous string
+3. It is not expected. Most likely due to a buffer overrun attack, as we only allocated 10 elements for the string. The phrases are longer than that

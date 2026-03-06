@@ -1,0 +1,47 @@
+TPS 1
+1. Noelle
+2. 
+    - https://www.w3schools.com/bash/
+    - https://www.freecodecamp.org/news/linux-command-line-bash-tutorial/
+    - https://www.freecodecamp.org/news/bash-scripting-tutorial-linux-shell-script-and-command-line-for-beginners/
+
+3. Done
+4. Done
+
+TPS 2
+1. 
+    - Windows - Windows Terminal
+    - Linux - Usually terminal of choice on distro
+    - MacOS - Terminal
+
+1a. Yes. I can have Windows Terminal and Warp open at the same time
+1b. To connect to various machines via SSH
+
+2. ls
+3. ~/Desktop
+4. cd ~/Desktop && mkdir CSE31 && mkdir CSE31/Lab_1
+
+TPS 3
+1. 
+    - https://www.geeksforgeeks.org/linux-unix/gcc-command-in-linux-with-examples/
+    - https://www.wikihow.com/Compile-a-C-Program-Using-the-GNU-Compiler-(GCC)
+
+2. Done
+3. gcc main.c
+4. Once there are no compiler errors and it reports nothing that would cause an error
+5. Compile and assemble, but do not link.
+6. Generate debug info
+7. gcc -o cselab1 main.c
+8. A binary named "a.out" is produced
+9. ./a.out
+
+
+
+For assignment 3:
+
+Needs to do:
+    Find even/odd on addition of each digit
+    Avg
+    Array storage to loop through characters
+        a while loop
+    gets the oridinal suffix

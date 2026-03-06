@@ -1,0 +1,13 @@
+- Sets up array
+- Set up any variables needed
+- Grab the suffix (st, th, etc)
+- Splice the number + st/th/rd (ordinal suffix) in the text
+- Print enter text w/ spliced number, scan for input in a while loop
+    - Checks for whether the digit input sums up to an even number
+        - Scan through each digit (via the n % 10 trick), store into array, and then loop over, add and check for even/odd
+        - Incr a counter for how much even/odd numbers we have counted
+    - Add inputted number to array
+- Check how much even/odd numbers we have hit
+    - even/odd > 0 --> we have some
+        - Print out the ones nascar
+    - even & odd == 0 --> Nothing
