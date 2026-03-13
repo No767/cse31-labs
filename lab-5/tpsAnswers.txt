@@ -1,0 +1,34 @@
+TPS 1:
+
+1. MARS standards for MIPS Assembler and Runtime Simulator
+2. MARS is already installed, and ran with Java 25
+3. Materials are downloaded and saved, as shown
+4. Already downloaded
+5.
+    a. Click on the button with the icon of a text file in a folder, and select the file to load
+    b. To assemble the program, click the button with the screwdriver to assemble
+    c. There is a green play button, which runs it to completion
+    d. No, you can't. It must be assembled before running
+    e. Once assembled, click the button that that has a "1" with it, which goes over it step by step
+    f. Click the green play button again
+6. Basically what it does is it loads, and prints out "10". But it's split into parts, with the static section defining static data, and text is the actual code
+
+TPS 2:
+
+1. .data stores static data (i.e., numbers, etc), with .word setting up an word-aligned integer and storing an integer of 4 bytes, and .text is the actual executable code
+2. line 10 is a subroutine, but acts as the exit condition for the recursive loop. 
+    This is done by checking if the "n" value (counting downwards) is more than 0. If the value equals to 0, then jump to the finish subroutine
+3. line 15 just calls the "fib" subroutine again, which is a recursive calls
+4. Assemble, and go to the "Execute" tab. There are checkpoints for each line, with when clicking on, sets a breakpoint
+5. Assemble, and click the green play button with a "1" attached to it. 
+   That will move it by one step each time, with the button to the right of it going back by one
+6. Once assembled, on the right, there is a "Registers" page. Within the data segment box, you can click on the checkbox "Hexadecimal values" to view them in hex. 
+   Assemble, and then set a breakpoint. Run it, and once it pauses, go to the registers page, and directly double-click the value, and hit enter.
+7.
+    a. "n" is the very first variable declared, so it starts on the starting boundary, which is 0x10010000
+    b. Assemble, find data segment panel, and find the address of 0x10010000. Look at the column "Value (+0)", with the element of the table being the value. 
+    c. Deselect "Hexdecmial values", and double click on the cell, and replace it with 13, which is 233
+8. This instruction makes a call to the system, i.e., First, the command code needs to be set under the $v0 register. 1 means "Print integer", 10 means system exit.
+   Within Line 19, the instruction simply moves the final computed value found in $t0, to $a0. Arguments are passed through registers $a0-$a3, so by doing so, the system can see it. The "0" at the end is a way to copy it. 
+   Then syscall actually calls the system with the code of 1, which prints out the integer
+   Within line 23, it sets the command code to 10, which exits the program. Syscall actually executes that

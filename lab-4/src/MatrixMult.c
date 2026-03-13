@@ -45,7 +45,7 @@ int main() {
 	// Seed the random numbers
 	srand(time(NULL));
 
-	int n = 0; // Change this to an positive number or testing
+	int n = 5; // Change this to an positive number or testing
 	int **matA, **matB, **matC;
 	// (1) Define 2 (n x n) arrays (matrices). 
 	matA = (int**)malloc(n * sizeof(int*));
