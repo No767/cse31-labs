@@ -1,0 +1,57 @@
+TPS 1:
+
+1. Starting text and data segments:
+    - Text: 0x00400000
+    - Data: 0x10010000
+
+2. The "True" assembly (under "Basic") is the simulated output of what the MIPS assembler would produce. Instructions are split
+    It strips the source code into valid MIPS instructions, while the MIPS assembly language output (under "Source") is the source code of the file we assembled
+    
+3. The first one is "0x10010000", while the second is "0x10010020"
+    0x10010020 - 0x10010000 = 0x20 = 32 bytes
+
+4. 8 columns, with the value being incremented by the offset of 4 bytes
+
+5. 32 / 8 = 4, meaning that each column of the table stores 4 bytes
+
+6. We need to define a section for our variable, which should be declared under the .data directive, and declare a "word", and set it to 20. I.e,
+
+    .data
+    m: .word 20
+
+7. Since it's already declared for us, (for some reason), and the variable "n" is declared first, then our address must be offset by 4 to the next available slot
+    Thus, it is stored in 0x10010004
+
+8. (from http://courses.cs.vt.edu/cs2506/Spring2013/Notes/L04.MIPSAssemblyOverview.pdf)
+    Generally, you need to declare the name of the string, with the .asciiz directive. asciiz stands for ASCII, zero-terminated. It will add one more byte at the end, 0x00, to act as a stop sign. It's the same concept as in \0
+
+9. It's already inserted for some reason, but if you split the string into 4 bytes (i.e., "I lo", etc), as 0x10010000 and 0x10010004 are taken, we just insert the rest as 0x10010008, and so forth. 
+
+10. Yes, the concept is the same. But in lab 4, a "char" type only takes up 1 byte, but here in MIPS, it is forced to take up 4 bytes instead (as MIPS convention, and MIPS forces you to do so)
+
+11. We will need to set up the command code, and arguments to do so. I.e, set the command code to 4, move the string into $a0, and syscall:
+
+    li $v0, 4
+    la $a0, str1
+    syscall
+
+12. "la" stands for "Load Address", i.e., it will take a variable or register, and load the address of it within the specified registered
+    "la $t3, n" basically takes the address of "n", and puts it in $t3
+
+    As "n" is the very first variable declared, the address must be stored in 0x10010000
+
+TPS 2:
+
+1. Optimization and redundancy. If we added those, then we would need to make the CPU itself more complex to support them. Besides, we can inverse the original instructions to make it work:
+
+    A < B is just slt A, B followed by bne (branch if true).
+
+    A > B is just A < B with the registers swapped: slt B, A followed by bne.
+
+    A <= B is the exact opposite of A > B. So, you just do slt B, A and use beq to branch if it's false.
+
+2. See code
+
+3. See code
+
+4. The command code for reading an integer is 5. Note that $v0 is the inputted integer that would be stored, so we need to move it to $t0 for safe keeping
