@@ -36,6 +36,11 @@ loop:
     # if $t1 == 0, increment our $s0 value which is even_sum  
     beq $t1, $zero, is_even
 
+    # if $t1 != 0, increment our $s1 value, which is odd_sum
+    # this instruction can be omitted because the next line adds $s1, which is odd_sum
+    # but this is here for clarity purposes 
+    bne $t1, $zero, is_odd
+
 is_odd:
     add $s1, $s1, $t0
     j loop
