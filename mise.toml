@@ -3,9 +3,11 @@ experimental_monorepo_root = true
 [tools]
 clang-format = "22.1.0"
 
+
 [monorepo]
 config_roots = [
-    "project-1"
+    "project-1",
+    "project-2"
 ]
 
 [settings]
