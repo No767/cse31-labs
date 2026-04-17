@@ -1,0 +1,53 @@
+TPS 1:
+
+1. From https://softwareengineering.stackexchange.com/questions/20909/method-vs-function-vs-procedure:
+
+   Function returns a value, procedures do not. A method is used in the context of OOP, which it is a part of a class. Similar to functions
+
+2. Sure
+
+3. It turns out all it is a function "sum", which adds two inputs together, and the variables m and n being the numbers 10 and 5
+
+4. Line 12 within proc1.s, within that label "SUM" jumping to line 20
+
+5. You "technically" can given the assumption in the question. 
+
+6. We don't need to. Instead, the instructions on line 20 saves the register, which it is being saved to the $ra register. MARS reports that the value of $ra is 0, which given the instruction above, forcing it to be 0, it makes sense that the return address would be 0. Would it normally make sense that it's 0? no
+
+7. MARS reports this: Error in : invalid program counter value: 0x00000000
+
+8. It is 0x00400024
+
+9. The return address is not correct. Actually, it was pushed down by 8 bytes, as the assembler split the "li" instruction by 2 instructions
+
+10. The new return address is 0x00400024. It is shifted down by 2 instructions. Although, when assembling, this results in the final output being "0". I was unable to make it work to display the output of "15", but using the JAL instruction, it would work
+
+11. JAL, aka "Jump and Link" instruction. It will save the next instruction's address to the $ra register, and jump to the given label
+
+12. See modified code
+
+TPS 2:
+
+1. Manually tracing it out results in the final output of "38"
+
+2. The "MAIN" function of proc2.s does the following:
+   - loads the address of the declared words x and y, and their respective values into $s0 and $s1 respectively
+   - Sets the value of $s0 into $a0 to be passed into the other arguments
+   - Jumps and links to SUM
+   - Add $s1 (y) and $s0 (x), and store result in $t0
+   - Adds 0 to $s1, and puts it in $a0 for printing purposes
+   - Prints result, and jumps to "END" label
+
+3. This is due to the "jal" instruction we used. "jal" puts the next instruction's address into the $ra register, and jumps to the given label.
+   Problem is, that in the SUM label, we use jal again, thus overriding the original $ra value. So we will need to store the $ra value somewhere that would persist in-memory (and not using $s0-9), thus requiring us to store it in the stack
+   
+4. The amount of register space there is is finite, but we can store as much as we reasonable want in the stack. So, it would make sense to store them in the stack instead
+
+5. Yes, there is an issue. It gets overridden, but the values of $s0 would not be destroyed after jumping to a label. Thus, leading to data corruption. $s0 would now contain garbage data
+
+6. We will need to save the following registers:
+   - $ra
+   - $s0
+   - $a0
+
+   We can do this by pushing 12 bytes into the $sp register, and using sw to store them. Then, before ending the SUM label, we restore the original registers to provide the original values back
