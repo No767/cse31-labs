@@ -1,0 +1,115 @@
+TPS 1:
+
+1. The MIPS reference sheet is loaded and present
+
+2. This is now loaded
+
+3. The basic has the instructions of TAL, and that based off of the opcodes, and the format, gets put into a hexdemecial code, which is the true machine code. just need to convert to 1s and 0s
+
+4. All MIPS instructions have 32-bits. MIPS uses a fixed-length instruction format, and will always stay that way.
+
+5. 3 formats/types:
+    - R-type: Register formats. Work with mainuplation of registers, such as "add", "sub", etc
+    - I-type: Immediate formats. Uses a constant value to perform operations
+    - J-type: Jump formats. Jump to different parts of the code
+
+6. 
+    a. addi is an I-type
+    b.
+        - Opcode: 8in decimal, 0x08 in hex
+        - Register Source (rs): $zero. Value will be 0, in hex is 0x00
+        - Register Target (rt): $s0. $s0 register is $16, which converting is 0x10
+        - Immediate value: 25. 25 to a 16-bit hex is 0x0019 (16 * 1 + 9 = 25)
+
+    c.
+        Opcode: 001000 (6 bits)
+        rs: 00000 (5 bits)
+        rt: 10000 (5 bits)
+        immediate: 0000000000011001 (16 bits)
+
+        Therefore: 0010 0000 0001 0000 0000 0000 0001 1001
+
+7. 
+    a. From MARS: 
+        - 0x0230402a --> 0000 0010 0011 0000 0100 0000 0010 1010
+
+            0 = 0000
+
+            2 = 0010
+
+            3 = 0011
+
+            0 = 0000
+
+            4 = 0100
+
+            0 = 0000
+
+            2 = 0010
+
+            a (10) = 1010
+
+    b. 6 fields, R-format
+        That being: opcode, rs, rt, rd, shamt, funct
+
+    c. 
+        - opcode (000000) --> 0x00
+        - rs (10001): --> 0x11
+        - rt (10000): --> 0x10
+        - rd (01000): --> 0x08
+        - shamt (00000): --> 0x00
+        - funct (101010): --> 0x2a (slt)
+
+    d. 
+        Opcode is 0 (R-format), funct code is 42 (0x2a). slt has the funct code of 2a
+
+        rs = 17 -> $s1
+        rt = 16 -> $s0
+        rd = 8 -> $t0
+
+    e. slt $t0, $s1, $s0
+
+8. 
+    a. bne, which is a I-format (bne rs, rt, label)
+
+    b. 
+        opcode: 0x05
+        rs: $t0 --> $8 --> 0x08
+        rt: $zero --> 0x00
+
+    c. LESS, 16 bits, and it's 0x00400038 (look at LESS label address)
+
+    d. No, as memory addresses are 32-bit. I-format immediate field is 16 bits, so it's impossible
+    
+    e. MIPS can't store the full address as discussed, so we will use the PC-relative address.
+        Therefore, it is 0x00400028
+
+        PC + 4 = 0x0040002c
+        target = 0x00400038
+        0x00400038 - 0x0040002c = 0x0000000C (which is 12)
+
+        12 / 4 = 3, therefore it is 0x0003
+    
+9. 
+
+    a. jump, J-format
+
+    b. opcode is 2, aka 0x02
+
+    c. labe lis GREQ, and that goes to line 27. Address is 0x00400030
+
+    d. Full memory address is 32 bits. So:
+        Drop bottom 2 bits and drop the top 4 bits
+
+        address in binary: 0000 0000 0100 0000 0000 0000 0011 0000
+        drop bottom 2 and top 4: 0000 0001 0000 0000 0000 0000 1100
+
+    e. Therefore:
+
+        binary: 0000 1000 0000 0100 0000 0000 0000 1100
+        hex: 0x0804000c
+
+
+        
+
+    

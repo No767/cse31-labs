@@ -1,0 +1,145 @@
+.text segment is 0x00400000, therefore (taken from MARS):
+
+line 7: 0x00400000
+line 14: 0x00400010
+line 17: 0x00400014
+line 20: 0x00400018
+
+GRT label: 0x0040001c
+LEEQ label: 0x00400030
+
+Line 7 conversion
+-----------------
+
+addi $s0, $zero, 25
+
+Format: I-Type
+
+opcode:
+    - Decimal: 8
+    - Hex: 0x08
+
+rs: $zero (just 0)
+rt: $s0 = $16
+immediate: -15
+
+Binary values:
+    - opcode: 001000
+    - rs: 00000
+    - rt: 10000
+    - immediate: 1111 1111 1111 0001 (two's complement)
+
+Therefore:
+    Binary: 0010 0000 0001 0000 1111 1111 1111 0001
+              |    |    |    |    |    |    |    | 
+              2    0    1    0    f    f    f    1
+
+    Hex: 0x2010ff1
+
+MIPS (TAL): addi $16, $0, -15
+MIPS (MARS): addi $s0, $zero, -15
+
+Line 14 conversion
+------------------
+
+slt $t0, $s0, $s1
+
+Format: R-Type
+
+opcode:
+    - Decimal: 0
+    - Hex: 0x00
+
+rs: $s0 = $16
+rt: $s1 = $17
+rd: $t0 = $8
+shamt (shift amount): 0
+funct: slt = 42
+
+Binary values:
+    opcode: 000000
+    rs: 10000
+    rt: 10001
+    rd: 01000
+    shamt: 00000
+    funct: 101010
+
+Therefore:
+    Binary: 0000 0010 0001 0001 0100 0000 0010 1010
+              |    |    |    |    |    |    |    | 
+              0    2    1    1    4    0    2    a
+
+    Hex: 0x0211402a
+
+MIPS (TAL): slt $8, $16, $17
+MIPS (MARS): slt $t0, $s0, $s1
+
+
+Line 17 conversion
+------------------
+
+beq $t0, $zero, LEEQ
+
+Format: I-Type
+Immediate Calculation: (Target Address - (PC + 4)) / 4
+                         -> (0x00400030 - (0x00400014 + 4)) / 4
+                         -> 24 / 4 = 6
+
+opcode:
+    - Decimal: 4
+    - Hex: 0x04
+
+rs: $t0 = $8
+rt: $zero = $0
+immediate: 6
+
+Binary values:
+    opcode: 000100
+    rs: 01000
+    rt: 00000
+    immediate:
+        - 6 = 110
+        - Pad the rest to fill up the space: 0000 0000 0000 0110
+
+Therefore:
+    Binary: 0001 0001 0000 0000 0000 0000 0000 0110
+              |    |    |    |    |    |    |    |
+              1    1    0    0    0    0    0    6
+    
+    Hex: 0x11000006
+
+MIPS (TAL): beq $8, $0, 6
+MIPS (MARS): beq $t0, $zero, LEEQ
+
+
+Line 20 conversion
+------------------
+
+j GRT
+
+Format: J-Type
+Address calculation:
+    0      0      4      0      0      0      1      c
+    |      |      |      |      |      |      |      |
+    0000   0000   0100   0000   0000   0000   0001   1100
+
+    - Drop top 4 and bottom 2 bits
+        - 0000 0100 0000 0000 0000 0001 11
+        - 0x00100007
+
+opcode:
+    - Decimal: 2
+    - Hex: 0x02
+
+address: 00 0001 0000 0000 0000 0000 0111 (adjusted for formatting and grouping)
+
+Therefore:
+    Binary: 0000 1000 0001 0000 0000 0000 0000 0111
+              |    |    |    |    |    |    |    |
+              0    8    1    0    0    0    0    7
+        
+    Hex: 0x08100007
+
+MIPS (TAL): j 0x0040001c
+MIPS (MARS): j GRT
+
