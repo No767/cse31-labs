@@ -4,6 +4,7 @@
 
 .text
 main:
+
     la $a0, prompt
 	li $v0, 4 
 	syscall
@@ -13,18 +14,20 @@ main:
 
 	# Move input into $a0, as this will be loaded as our argument
     addu $a0, $zero, $v0
-
+    
     jal recursion
 
 	# Our final, official return value is in $v0
     # Thus we need to move it to $a0 so it is the correct argument register to print the result
     # In addition, we can assume that $a0 is unused, so it's fine to overwrite it
     addu $a0, $zero, $v0
+    
 
     li $v0, 1
     syscall
 	
     j end
+
 
 
 recursion:
@@ -33,8 +36,7 @@ recursion:
     sw $ra, 8($sp)
     sw $a0, 4($sp)
     sw $s0, 0($sp)
-
-
+    
     # if (m == -1)
     li $t0, -1
 	beq $a0, $t0, is_minus_one
