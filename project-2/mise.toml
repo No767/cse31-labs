@@ -1,0 +1,23 @@
+[tasks."build"]
+description = "Builds the avgScore executable"
+dir = "{{ config_root }}"
+run = '''
+#!/usr/bin/env bash
+[ -d build ] || mkdir build
+gcc -o build/avgScore.out src/avgScore.c
+'''
+
+[tasks."run"]
+description = "Runs the built avgScore executable"
+dir = "{{ config_root }}"
+run = "./build/avgScore.out"
+
+[tasks."demo"]
+description = "Builds and runs the wordsearch executable for demo purposes"
+dir = "{{ config_root }}"
+run = [{ task = "build" }, {task = "run" }]
+
+[tasks."mars:run"]
+description = "Runs the MIPS version on MARS"
+dir = "{{ config_root }}"
+run = "java -jar /home/noelle/.local/bin/Mars4_5.jar src/avgScore.s"
